@@ -1,9 +1,28 @@
-import './style.css'
+import "./style.css";
 import "@babylonjs/core/Debug/debugLayer";
 import "@babylonjs/inspector";
-import { AdvancedDynamicTexture, Button, Control, Rectangle, StackPanel, TextBlock } from '@babylonjs/gui/2D';
-import { Engine, Scene, ArcRotateCamera, Vector3, HemisphericLight, MeshBuilder, Tools, loadAssetContainerAsync, StandardMaterial, Color3, KeyboardEventTypes } from "@babylonjs/core";
-import { global, initAcc } from './account';
+import {
+  AdvancedDynamicTexture,
+  Button,
+  Control,
+  Rectangle,
+  StackPanel,
+  TextBlock,
+} from "@babylonjs/gui/2D";
+import {
+  Engine,
+  Scene,
+  ArcRotateCamera,
+  Vector3,
+  HemisphericLight,
+  MeshBuilder,
+  Tools,
+  loadAssetContainerAsync,
+  StandardMaterial,
+  Color3,
+  KeyboardEventTypes,
+} from "@babylonjs/core";
+import { global, initAcc } from "./account";
 
 class App {
   scene: Scene;
@@ -25,7 +44,8 @@ class App {
     this.init(canvas);
     this.initUI();
 
-    const labelTexture = AdvancedDynamicTexture.CreateFullscreenUI("UI for label");
+    const labelTexture =
+      AdvancedDynamicTexture.CreateFullscreenUI("UI for label");
     labelTexture.layer && (labelTexture.layer.layerMask = 1);
     this.labelTexture = labelTexture;
 
@@ -69,26 +89,20 @@ class App {
     camera1.attachControl(canvas, false);
     camera1.layerMask = 1;
 
-    var light = new HemisphericLight(
-      "light",
-      new Vector3(1, 1, 1),
-      scene
-    );
+    new HemisphericLight("light", new Vector3(1, 1, 1), scene);
 
-    loadAssetContainerAsync("/ground/scene.gltf", scene).then(
-      (res) => {
-        const env = res.meshes[0];
-        env.layerMask = 1;
-        let allMeshes = env.getChildMeshes();
+    loadAssetContainerAsync("/ground/scene.gltf", scene).then((res) => {
+      const env = res.meshes[0];
+      env.layerMask = 1;
+      let allMeshes = env.getChildMeshes();
 
-        allMeshes.forEach((m) => {
-          m.layerMask = 1;
-          m.receiveShadows = true;
-          m.checkCollisions = true;
-        });
-        res.addAllToScene();
-      }
-    );
+      allMeshes.forEach((m) => {
+        m.layerMask = 1;
+        m.receiveShadows = true;
+        m.checkCollisions = true;
+      });
+      res.addAllToScene();
+    });
   }
 
   initUI() {
@@ -102,8 +116,7 @@ class App {
     );
     camera2.layerMask = 2;
     // GUI - simply set advancedTexture layerMask to 2
-    var advancedTexture =
-      AdvancedDynamicTexture.CreateFullscreenUI("UI");
+    var advancedTexture = AdvancedDynamicTexture.CreateFullscreenUI("UI");
     advancedTexture.layer && (advancedTexture.layer.layerMask = 2);
 
     var panel = new StackPanel();
@@ -121,14 +134,10 @@ class App {
     if (rooms) {
       rooms.forEach((room: any, i) => {
         const { roomCode } = room;
-        var roomPanel = Button.CreateSimpleButton(
-          "but" + i,
-          roomCode
-        );
+        var roomPanel = Button.CreateSimpleButton("but" + i, roomCode);
         roomPanel.height = "40px";
         roomPanel.color = "white";
-        roomPanel.horizontalAlignment =
-          Control.HORIZONTAL_ALIGNMENT_LEFT;
+        roomPanel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
         roomPanel.paddingTop = "10px";
         roomPanel.onPointerClickObservable.add(() => {
           join(roomCode).then(() => {
@@ -142,8 +151,7 @@ class App {
     var createPanel = Button.CreateSimpleButton("but0", "new");
     createPanel.height = "40px";
     createPanel.color = "green";
-    createPanel.horizontalAlignment =
-      Control.HORIZONTAL_ALIGNMENT_LEFT;
+    createPanel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
     createPanel.paddingTop = "10px";
     createPanel.onPointerClickObservable.add(() => {
       create().then(() => {
@@ -215,7 +223,7 @@ class App {
           };
         }
         const player = players[playerId];
-        const delt = (timestamp - player.timestamp) / 1000;
+        // const delt = (timestamp - player.timestamp) / 1000;
         const { l, r, f, b } = _data;
         player.box.position.x += (l ? -1 : r ? 1 : 0) * speed; // x轴朝右
         player.box.position.z += (f ? 1 : b ? -1 : 0) * speed;
@@ -255,6 +263,6 @@ class App {
     rect1.linkOffsetY = -70;
 
     return box;
-  };
+  }
 }
 new App();

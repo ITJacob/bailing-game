@@ -37,8 +37,10 @@ function init(reslove: () => void) {
     .then((client: any) => {
       // 已完成初始化请求，具体初始化结果通过onInitResult回调获取
       playerId = client.playerId;
+      console.log(playerId);
+      
     })
-    .catch((err: Error) => {
+    .catch(() => {
       // 初始化请求失败，重新初始化或联系华为技术支持
     });
 
