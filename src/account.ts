@@ -1,4 +1,3 @@
-import './GOBE.js'
 const GOBE = (window as any).GOBE;
 
 export const global: any = {

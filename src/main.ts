@@ -91,7 +91,7 @@ class App {
 
     new HemisphericLight("light", new Vector3(1, 1, 1), scene);
 
-    loadAssetContainerAsync("/ground/scene.gltf", scene).then((res) => {
+    loadAssetContainerAsync(import.meta.env.BASE_URL + "ground/scene.gltf", scene).then((res) => {
       const env = res.meshes[0];
       env.layerMask = 1;
       let allMeshes = env.getChildMeshes();

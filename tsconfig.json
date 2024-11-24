@@ -20,7 +20,8 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
-    "allowJs": true
+    "allowJs": true,
+    "allowUmdGlobalAccess": true
   },
-  "include": ["src"]
+  "include": ["src", "public/GOBE.js"]
 }
