@@ -41,8 +41,8 @@ class App {
     });
     const scene = new Scene(engine);
     this.scene = scene;
-    this.init(canvas);
-    this.initUI();
+    const camera1 = this.init(canvas);
+    const camera2 = this.initUI();
 
     const labelTexture =
       AdvancedDynamicTexture.CreateFullscreenUI("UI for label");
@@ -50,6 +50,8 @@ class App {
     this.labelTexture = labelTexture;
 
     this.start();
+
+    scene.activeCameras = [camera1, camera2];
 
     // hide/show the Inspector
     window.addEventListener("keydown", (ev) => {
@@ -91,7 +93,10 @@ class App {
 
     new HemisphericLight("light", new Vector3(1, 1, 1), scene);
 
-    loadAssetContainerAsync(import.meta.env.BASE_URL + "ground/scene.gltf", scene).then((res) => {
+    loadAssetContainerAsync(
+      import.meta.env.BASE_URL + "ground/scene.gltf",
+      scene
+    ).then((res) => {
       const env = res.meshes[0];
       env.layerMask = 1;
       let allMeshes = env.getChildMeshes();
@@ -103,6 +108,8 @@ class App {
       });
       res.addAllToScene();
     });
+
+    return camera1;
   }
 
   initUI() {
@@ -127,6 +134,7 @@ class App {
     advancedTexture.addControl(panel);
 
     this.uiPanel = panel;
+    return camera2;
   }
 
   async start() {
