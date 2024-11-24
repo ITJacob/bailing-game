@@ -1,5 +1,9 @@
-import {defineConfig} from 'vite';
+import { defineConfig } from "vite";
 
-export default defineConfig({
-    // base:'/bailin_babylon/'
-})
+export default defineConfig(({ mode }) => {
+  const base = mode === "production" ? "/bailing-game/" : "/";
+
+  return {
+    base,
+  };
+});
